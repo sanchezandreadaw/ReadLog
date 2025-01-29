@@ -1,11 +1,30 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>
-      ReadLog - v1 📙
-    </ion-title>
-  </ion-toolbar>
-</ion-header>
+<ion-menu contentId="main-content">
+  <ion-header>
+    <ion-toolbar color="tertiary">
+      <ion-title>Contenido</ion-title>
+    </ion-toolbar>
+  </ion-header>
+  <ion-content class="ion-padding">
+    Libros leídos
+  </ion-content>
+</ion-menu>
 
 <ion-content [fullscreen]="true">
-    <app-add-book/>
+  <!-- Aquí va el contenido principal de la página, el menú está asociado con el contentId="main-content" -->
+  <div class="ion-page" id="main-content">
+    <ion-header>
+      <ion-toolbar>
+        <ion-buttons slot="start">
+          <!-- Botón para abrir el menú -->
+          <ion-menu-button></ion-menu-button>
+        </ion-buttons>
+        <ion-title>ReadLog - v1</ion-title>
+      </ion-toolbar>
+    </ion-header>
+    <ion-content>
+      <body-home />
+    </ion-content>
+    <footer-home />
+  </div>
 </ion-content>
+

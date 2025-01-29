@@ -1,12 +1,167 @@
+ion-content {
+  padding: 10px;
+  overflow-y: auto;
+}
+
+ion-title {
+  font-size: 1.2rem;
+}
+
 ion-header {
-  background-color: #f8f8f8;
+  line-height: 100px;
+  align-items: center;
+  align-content: center;
 }
 
-ion-toolbar {
-  --background: #3880ff;
-  --color: white;
+ion-item {
+  margin: 15px 0;
 }
 
-ion-footer {
-  padding: 20px;
+.image-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 10px;
+}
+
+.book-image {
+  width: 50%;
+  margin-bottom: 10px;
+}
+
+.delete-button {
+  background-color: red;
+  color: white;
+}
+
+.submit-button {
+  display: block;
+  margin: 20px auto;
+}
+
+@supports (padding: env(safe-area-inset-top)) {
+  ion-content {
+    padding-top: env(safe-area-inset-top, 30px);
+  }
+}
+
+@media (max-width: 400px) {
+  .titulo-add-book {
+    font-size: 1.2rem;
+  }
+
+  .container-add-book {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  ion-icon {
+    font-size: 20px;
+    margin-left: 0;
+  }
+
+  ion-item {
+    margin: 8px 0;
+  }
+
+  ion-datetime {
+    height: 40px;
+  }
+}
+
+@media (max-width: 599px) {
+  .titulo-add-book {
+    font-size: 1.3rem;
+  }
+
+  .container-add-book {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  ion-icon {
+    font-size: 22px;
+  }
+
+  ion-item {
+    margin: 10px 0;
+  }
+
+  ion-button {
+    font-size: 1rem;
+  }
+}
+
+@media (min-width: 600px) and (max-width: 1023px) {
+  .titulo-add-book {
+    font-size: 1.4rem;
+  }
+
+  .container-add-book {
+    gap: 15px;
+  }
+
+  ion-item {
+    margin: 12px 0;
+  }
+
+  ion-button {
+    font-size: 1.1rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .titulo-add-book {
+    font-size: 1.5rem;
+  }
+
+  .container-add-book {
+    gap: 20px;
+  }
+
+  ion-icon {
+    font-size: 26px;
+  }
+
+  ion-item {
+    margin: 15px 0;
+  }
+
+  ion-button {
+    font-size: 1.2rem;
+  }
+}
+
+@media (orientation: landscape) {
+  ion-item {
+    margin: 8px 0;
+  }
+
+  .titulo-add-book {
+    font-size: 1.5rem;
+  }
+
+  .container-add-book {
+    flex-direction: row;
+    justify-content: space-between;
+  }
+}
+
+@media (orientation: portrait) {
+  ion-item {
+    margin: 10px 0;
+  }
+
+  .titulo-add-book {
+    font-size: 1.3rem;
+  }
+
+  .container-add-book {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  ion-button {
+    font-size: 1rem;
+  }
 }

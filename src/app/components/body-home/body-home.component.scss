@@ -1,0 +1,32 @@
+/* Por defecto, 1 columna en dispositivos pequeños */
+ion-col {
+  flex: 0 0 100%;
+}
+
+/* En dispositivos de tamaño medio (tabletas), 2 columnas */
+@media (min-width: 768px) {
+  ion-col {
+    flex: 0 0 50%;
+  }
+}
+
+/* En dispositivos de tamaño grande (escritorios), 3 columnas */
+@media (min-width: 1024px) {
+  ion-col {
+    flex: 0 0 33.33%;
+  }
+}
+
+/* Ajuste específico para cuando la orientación es landscape */
+@media (orientation: landscape) {
+  ion-col {
+    flex: 0 0 33.33%; /* 3 columnas */
+  }
+}
+
+/* Ajuste específico para cuando la orientación es portrait */
+@media (orientation: portrait) {
+  ion-col {
+    flex: 0 0 50%; /* 2 columnas */
+  }
+}

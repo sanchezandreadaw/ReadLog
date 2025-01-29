@@ -1,28 +1,55 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>Agregar libro</ion-title>
-    <ion-buttons slot="end">
-      <ion-button>Cancelar</ion-button>
+    <ion-buttons slot="start">
+      <ion-button (click)="goHome()">
+        <ion-icon slot="icon-only" name="arrow-back-outline"></ion-icon>
+      </ion-button>
     </ion-buttons>
+    <ion-title class="titulo-add-book">Nueva Lectura 📙</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
-  <form>
+<ion-content class="ion-padding">
+  <form #addBook="ngForm" class="form-container">
     <ion-item>
       <ion-label position="floating">Título</ion-label>
-      <ion-input formControlName="title" type="text"></ion-input>
+      <ion-input type="text" required [(ngModel)]="libro.titulo" name="titulo"></ion-input>
     </ion-item>
 
     <ion-item>
       <ion-label position="floating">Autor</ion-label>
-      <ion-input formControlName="author" type="text"></ion-input>
+      <ion-input type="text" required [(ngModel)]="libro.autor" name="autor"></ion-input>
     </ion-item>
 
-    <ion-footer>
-      <ion-button expand="full" type="submit">
-        Agregar
-      </ion-button>
-    </ion-footer>
+    <ion-item>
+      <ion-label>Género</ion-label>
+      <ion-select placeholder="Selecciona un género" required [(ngModel)]="libro.genero" name="genero">
+        @for(genero of generos_array; track genero) {
+          <ion-select-option>{{ genero }}</ion-select-option>
+        }
+      </ion-select>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Fecha en que terminaste el libro</ion-label>
+    </ion-item>
+
+    <ion-item>
+      <ion-datetime presentation="date" required [(ngModel)]="libro.fecha" name="fecha" locale="es-ES"></ion-datetime>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Imagen</ion-label>
+      <ion-button (click)="takePicture()">Seleccionar Imagen</ion-button>
+    </ion-item>
+
+    @if(image) {
+      <div class="image-container">
+        <img [src]="image" alt="Imagen seleccionada" class="book-image">
+        <ion-button fill="outline" color="danger" class="delete-button" (click)="deleteImage()">Eliminar Imagen</ion-button>
+      </div>
+    }
+
+    <ion-button expand="full" type="submit" class="submit-button">Agregar Libro</ion-button>
   </form>
 </ion-content>
