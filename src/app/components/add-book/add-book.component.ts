@@ -2,11 +2,13 @@ import {
   IonContent, IonHeader, IonToolbar, IonTitle, IonIcon, IonList, IonDatetime, IonButton,IonSelectOption, IonSelect, IonButtons, IonItem, IonLabel, IonInput, IonFooter, IonRow } from '@ionic/angular/standalone';
 import { Component, OnInit } from '@angular/core';
 import { FooterHomeComponent } from "../footer-home/footer-home.component";
+import { ToastController } from '@ionic/angular';
 import { Camera, CameraResultType, CameraSource } from '@capacitor/camera';
 import { generos } from 'src/app/data/db_generos';
 import { FormGroup, FormsModule, NgForm, ReactiveFormsModule } from '@angular/forms';
 import { Libro } from 'src/app/models/libro';
 import { Router } from '@angular/router';
+import { BookService } from 'src/app/services/book.service';
 
 
 @Component({
@@ -15,7 +17,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./add-book.component.scss'],
   standalone: true,
   imports: [
-    IonSelectOption, IonSelect,IonList,
+    IonSelectOption, IonSelect,
     IonContent, IonToolbar, IonDatetime, IonTitle,
     IonButton, IonItem, IonLabel,IonInput,
     IonIcon, IonHeader, IonButtons,
@@ -28,8 +30,9 @@ export class AddBookComponent  implements OnInit {
   image: string | undefined;
   generos_array:string[] = generos;
   libro:Libro;
+  libros:Libro[] = [];
 
-  constructor(private router:Router) {
+  constructor(private router:Router, private service : BookService, private toastController: ToastController,) {
     this.libro = {
       id : 0,
       titulo : "",
@@ -41,7 +44,9 @@ export class AddBookComponent  implements OnInit {
 
     }
 
-  ngOnInit() {}
+  async ngOnInit() {
+
+  }
 
   async takePicture() {
     try {
@@ -56,9 +61,33 @@ export class AddBookComponent  implements OnInit {
     }
   }
 
-  addBook(addBookForm : FormGroup) {
+  async addBook(addBookForm: NgForm) {
+    if (addBookForm.valid) {
+      try {
+        console.log('Datos del libro antes de agregar:', this.libro);  // Verifica los datos antes de la inserción
+        this.service.addBook(this.libro);
 
+        // Actualiza la lista de libros después de agregar uno
+        this.service.getBooks();
+        console.log('Libro agregado correctamente');
+
+        // Muestra el Toast
+        const toast = await this.toastController.create({
+          message: 'El libro se ha añadido correctamente.',
+          duration: 2000,
+          position: 'top',
+          color: 'success',
+        });
+
+        toast.present();
+      } catch (error) {
+
+        console.error('Error al añadir el libro:', error);
+      }
+    }
   }
+
+
 
   goHome() {
     this.router.navigate(['/']);

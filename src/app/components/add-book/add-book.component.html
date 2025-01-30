@@ -10,15 +10,40 @@
 </ion-header>
 
 <ion-content class="ion-padding">
-  <form #addBook="ngForm" class="form-container">
+  <form #addBookForm="ngForm" class="form-container" (submit)="addBook(addBookForm)">
     <ion-item>
       <ion-label position="floating">Título</ion-label>
-      <ion-input type="text" required [(ngModel)]="libro.titulo" name="titulo"></ion-input>
+      <ion-input type="text" required [(ngModel)]="libro.titulo" minlength="3" name="titulo" #titulo="ngModel"></ion-input>
+      @if(titulo.invalid && (titulo.touched || titulo.dirty)) {
+        @if(titulo.errors?.['required']) {
+          <div>
+            <p> El campo {{titulo.name}} es obligatorio</p>
+          </div>
+          @if(titulo.errors?.['minlength']) {
+            <div>
+              <p>El {{titulo.name}} debe tener al menos {{titulo.errors?.['minlength'].requiredLength}}</p>
+            </div>
+          }
+        }
+      }
     </ion-item>
 
     <ion-item>
       <ion-label position="floating">Autor</ion-label>
-      <ion-input type="text" required [(ngModel)]="libro.autor" name="autor"></ion-input>
+      <ion-input type="text" required [(ngModel)]="libro.autor" name="autor" minlength="3" #autor="ngModel"></ion-input>
+        @if (autor.invalid && (autor.touched || autor.dirty)) {
+          @if(autor.errors?.['required']) {
+            <div>
+              <p>El campo {{ autor.name }} es obligatorio</p>
+            </div>
+          }
+
+          @if(autor.errors?.['minlenght']) {
+            <div>
+              <p>El {{titulo.name}} debe tener al menos {{titulo.errors?.['minlength'].requiredLength}}</p>
+            </div>
+          }
+        }
     </ion-item>
 
     <ion-item>

@@ -1,6 +1,7 @@
-import {Component, OnInit } from '@angular/core';
+import {Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { IonCard, IonCardHeader, IonCardTitle, IonSearchbar, IonRow, IonCol, IonCardSubtitle, IonCardContent, IonGrid, IonContent } from "@ionic/angular/standalone";
-import { Chart, registerables } from 'chart.js';
+import { Libro } from 'src/app/models/libro';
+import { BookService } from 'src/app/services/book.service';
 
 @Component({
   selector: 'body-home',
@@ -9,18 +10,11 @@ import { Chart, registerables } from 'chart.js';
   standalone: true,
   imports:[IonCard, IonCardHeader, IonCardTitle, IonSearchbar, IonContent, IonGrid, IonRow, IonCol, IonCardSubtitle, IonCardContent]
 })
-export class BodyHomeComponent implements OnInit  {
+export class BodyHomeComponent {
+  libros: Promise<Libro[]> = this.service.getBooks()
+  default_img_url = "https://ionicframework.com/docs/img/demos/card-media.png";
 
-  constructor() {
-
-  }
-
-  ngOnInit(): void {
-
-  }
-
-
-
-
+  constructor(private service: BookService) {}
 
 }
+

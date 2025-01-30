@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { IonApp, IonRouterOutlet } from '@ionic/angular/standalone';
+import { BookService } from './services/book.service';
+
 
 @Component({
   selector: 'app-root',
@@ -7,5 +9,10 @@ import { IonApp, IonRouterOutlet } from '@ionic/angular/standalone';
   imports: [IonApp, IonRouterOutlet],
 })
 export class AppComponent {
-  constructor() {}
+  constructor(private service:BookService) {}
+
+  async initApp() {
+    await this.service.initDb();
+
+  }
 }

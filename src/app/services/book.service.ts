@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Capacitor } from '@capacitor/core';
 import { SQLiteConnection, SQLiteDBConnection, CapacitorSQLite } from '@capacitor-community/sqlite';
+import { Libro } from '../models/libro';
+import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -8,6 +10,7 @@ import { SQLiteConnection, SQLiteDBConnection, CapacitorSQLite } from '@capacito
 export class BookService {
   private db: SQLiteDBConnection | null = null;
   private sqlite: SQLiteConnection;
+
 
   constructor() {
     this.sqlite = new SQLiteConnection(CapacitorSQLite);
@@ -17,7 +20,7 @@ export class BookService {
   /**
    * Initialize the SQLite plugin and database
    */
-  private async initDb() {
+  async initDb() {
     try {
       const platform = Capacitor.getPlatform();
       if (platform === 'ios' || platform === 'android') {
@@ -31,63 +34,87 @@ export class BookService {
 
         if (dbConnection) {
           this.db = dbConnection;
-
-          // Open the database
           await this.db.open();
-
-          // Create the table
           await this.createTable();
         } else {
-          console.error('Error creating SQLite connection');
+          console.error('Error creando la conexión con SQLite');
         }
       } else {
-        console.warn('SQLite is only supported on native platforms');
+        console.warn('SQLite solo soportado en plataformas nativas');
       }
     } catch (error) {
-      console.error('Error initializing the database:', error);
+      console.error('Error inicializando la base de datos:', error);
     }
   }
 
   /**
    * Create the `libros` table
    */
-  private async createTable() {
+  async createTable() {
     try {
       if (this.db) {
         await this.db.execute(`
           CREATE TABLE IF NOT EXISTS libros (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
-            title TEXT NOT NULL,
-            author TEXT NOT NULL
+            titulo TEXT NOT NULL,
+            autor TEXT NOT NULL,
+            genero TEXT NOT NULL,
+            fecha DATE NOT NULL,
+            imagen TEXT NOT NULL
           );
         `);
-        console.log('Table `libros` created successfully');
+        console.log('Tabla `libros` creada o ya existe');
       }
     } catch (error) {
-      console.error('Error creating the table:', error);
+      console.error('Error creando la tabla:', error);
     }
   }
+
 
   /**
    * Add a book to the `libros` table
    * @param book
    */
-  async addBook(book: { title: string; author: string }) {
+  async addBook(book: Libro) {
     try {
       if (this.db) {
-        const statement = 'INSERT INTO libros (title, author) VALUES (?, ?)';
-        await this.db.run(statement, [book.title, book.author]);
-        console.log('Book added:', book);
+        const statement = 'INSERT INTO libros (titulo, autor, genero, fecha, imagen) VALUES (?, ?, ?, ?, ?)';
+        await this.db.run(statement, [book.titulo, book.autor, book.genero, book.fecha, book.ruta_img]);
+
+        // Recupera los libros después de agregar uno nuevo y actualiza el estado
+        await this.getBooks();  // Esto emitirá los libros a través del BehaviorSubject
       }
     } catch (error) {
-      console.error('Error adding the book:', error);
+      console.error('Error al agregar el libro:', error);
     }
   }
+
+
+  async countBooks(): Promise<number> {
+    try {
+      if (this.db) {
+        const query = 'SELECT COUNT(*) as count FROM libros';
+        const result = await this.db.query(query);
+
+        // Verifica si result.values existe y tiene al menos un elemento
+        if (result.values && result.values.length > 0) {
+          return result.values[0].count || 0;  // Retorna el conteo, o 0 si no tiene valor
+        }
+        return 0;  // Si no hay resultados en values, retorna 0
+      }
+      return 0;  // Si no se tiene una conexión a la base de datos
+    } catch (error) {
+      console.error('Error counting books:', error);
+      return 0;
+    }
+  }
+
+
 
   /**
    * Get all books from the `libros` table
    */
-  async getBooks() {
+  async getBooks(): Promise<Libro[]> {
     try {
       if (this.db) {
         const query = 'SELECT * FROM libros';
@@ -96,10 +123,11 @@ export class BookService {
       }
       return [];
     } catch (error) {
-      console.error('Error retrieving books:', error);
+      console.error('Error obteniendo libros:', error);
       return [];
     }
   }
+
 
   /**
    * Update a book in the `libros` table
