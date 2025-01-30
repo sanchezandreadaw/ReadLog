@@ -1,6 +1,6 @@
 import { Routes } from '@angular/router';
 import { AddBookComponent } from './components/add-book/add-book.component';
-import { WishListBookComponent } from './components/wish-list-book/wish-list-book.component';
+
 
 export const routes: Routes = [
   {
@@ -16,9 +16,6 @@ export const routes: Routes = [
     path: 'add-book',
     component: AddBookComponent
   },
-  {
-    path: 'wish-list',
-    component: WishListBookComponent
-  }
+
 
 ];
