@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { IonFooter, IonToolbar,IonContent, IonTabBar, IonTabButton, IonHeader, IonIcon, IonButtons, IonCol, IonButton, IonRow, IonTabs, IonTab, IonTitle } from "@ionic/angular/standalone";
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 
 @Component({
   selector: 'footer-home',
@@ -8,7 +8,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./footer-home.component.scss'],
   standalone: true,
   imports: [
-    IonToolbar,IonIcon,IonButton, IonFooter
+    IonToolbar,IonIcon,IonButton, IonFooter, RouterLink
     ]
 })
 export class FooterHomeComponent  implements OnInit {
@@ -17,15 +17,4 @@ export class FooterHomeComponent  implements OnInit {
 
   ngOnInit() : void {}
 
-  goToAddBookComponent() : void{
-    this.route.navigate(['/add-book']);
-  }
-
-  goToHomeComponent(): void {
-    this.route.navigate(['/']);
-  }
-
-  goToWishListBookComponent():void {
-    this.route.navigate(['/wish-list'])
-  }
 }

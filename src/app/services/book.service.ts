@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { Capacitor } from '@capacitor/core';
-import { SQLiteConnection, SQLiteDBConnection, CapacitorSQLite } from '@capacitor-community/sqlite';
+import { Storage } from '@ionic/storage-angular';
+import { Camera, CameraResultType, CameraSource } from '@capacitor/camera';
 import { Libro } from '../models/libro';
 import { BehaviorSubject } from 'rxjs';
 
@@ -8,157 +8,75 @@ import { BehaviorSubject } from 'rxjs';
   providedIn: 'root'
 })
 export class BookService {
-  private db: SQLiteDBConnection | null = null;
-  private sqlite: SQLiteConnection;
+  private storage: Storage | null = null;
+  private booksSubject: BehaviorSubject<Libro[]> = new BehaviorSubject<Libro[]>([]);  // Emite libros
 
-
-  constructor() {
-    this.sqlite = new SQLiteConnection(CapacitorSQLite);
-    this.initDb();
+  constructor(private storageService: Storage) {
+    this.init();
   }
 
-  /**
-   * Initialize the SQLite plugin and database
-   */
-  async initDb() {
-    try {
-      const platform = Capacitor.getPlatform();
-      if (platform === 'ios' || platform === 'android') {
-        const dbConnection = await this.sqlite.createConnection(
-          'book.db',       // Database name
-          false,           // Encrypted
-          'no-encryption', // Encryption mode
-          1,               // Database version
-          false            // Not readonly
-        );
-
-        if (dbConnection) {
-          this.db = dbConnection;
-          await this.db.open();
-          await this.createTable();
-        } else {
-          console.error('Error creando la conexión con SQLite');
-        }
-      } else {
-        console.warn('SQLite solo soportado en plataformas nativas');
-      }
-    } catch (error) {
-      console.error('Error inicializando la base de datos:', error);
-    }
+  // Inicializar el almacenamiento
+  async init() {
+    const storage = await this.storageService.create();
+    this.storage = storage;
+    this.loadBooks();  // Cargar los libros desde almacenamiento al iniciar
   }
 
-  /**
-   * Create the `libros` table
-   */
-  async createTable() {
-    try {
-      if (this.db) {
-        await this.db.execute(`
-          CREATE TABLE IF NOT EXISTS libros (
-            id INTEGER PRIMARY KEY AUTOINCREMENT,
-            titulo TEXT NOT NULL,
-            autor TEXT NOT NULL,
-            genero TEXT NOT NULL,
-            fecha DATE NOT NULL,
-            imagen TEXT NOT NULL
-          );
-        `);
-        console.log('Tabla `libros` creada o ya existe');
-      }
-    } catch (error) {
-      console.error('Error creando la tabla:', error);
-    }
+  // Cargar libros desde el almacenamiento
+  async loadBooks() {
+    const books = await this.storage?.get('books') || [];
+    this.booksSubject.next(books);  // Emitir los libros cargados
   }
 
-
-  /**
-   * Add a book to the `libros` table
-   * @param book
-   */
-  async addBook(book: Libro) {
-    try {
-      if (this.db) {
-        const statement = 'INSERT INTO libros (titulo, autor, genero, fecha, imagen) VALUES (?, ?, ?, ?, ?)';
-        await this.db.run(statement, [book.titulo, book.autor, book.genero, book.fecha, book.ruta_img]);
-
-        // Recupera los libros después de agregar uno nuevo y actualiza el estado
-        await this.getBooks();  // Esto emitirá los libros a través del BehaviorSubject
-      }
-    } catch (error) {
-      console.error('Error al agregar el libro:', error);
-    }
+  // Obtener todos los libros
+  getBooks() {
+    return this.booksSubject.asObservable();  // Devuelve un observable
   }
 
-
-  async countBooks(): Promise<number> {
-    try {
-      if (this.db) {
-        const query = 'SELECT COUNT(*) as count FROM libros';
-        const result = await this.db.query(query);
-
-        // Verifica si result.values existe y tiene al menos un elemento
-        if (result.values && result.values.length > 0) {
-          return result.values[0].count || 0;  // Retorna el conteo, o 0 si no tiene valor
-        }
-        return 0;  // Si no hay resultados en values, retorna 0
-      }
-      return 0;  // Si no se tiene una conexión a la base de datos
-    } catch (error) {
-      console.error('Error counting books:', error);
-      return 0;
-    }
+  // Obtener un libro por ID
+  async getBookById(id: number): Promise<Libro | undefined> {
+    const books = this.booksSubject.getValue(); // Obtener el valor actual de los libros
+    return books.find(book => book.id === id);
   }
 
-
-
-  /**
-   * Get all books from the `libros` table
-   */
-  async getBooks(): Promise<Libro[]> {
-    try {
-      if (this.db) {
-        const query = 'SELECT * FROM libros';
-        const result = await this.db.query(query);
-        return result.values || [];
-      }
-      return [];
-    } catch (error) {
-      console.error('Error obteniendo libros:', error);
-      return [];
-    }
+  // Agregar un nuevo libro
+  async addBook(book: Libro): Promise<void> {
+    const books = this.booksSubject.getValue();  // Obtener el valor actual de los libros
+    books.push(book);  // Agregar el nuevo libro al arreglo
+    await this.storage?.set('books', books);  // Guardar los libros en el almacenamiento
+    this.booksSubject.next(books);  // Emitir los cambios
   }
 
-
-  /**
-   * Update a book in the `libros` table
-   * @param id
-   * @param book
-   */
-  async updateBook(id: number, book: { title: string; author: string }) {
-    try {
-      if (this.db) {
-        const statement = 'UPDATE libros SET title = ?, author = ? WHERE id = ?';
-        await this.db.run(statement, [book.title, book.author, id]);
-        console.log('Book updated:', { id, ...book });
-      }
-    } catch (error) {
-      console.error('Error updating the book:', error);
-    }
+  // Editar un libro
+  async updateBook(updatedBook: Libro): Promise<void> {
+    let books = this.booksSubject.getValue();  // Obtener el valor actual de los libros
+    books = books.map(book => book.id === updatedBook.id ? updatedBook : book);  // Actualizar el libro
+    await this.storage?.set('books', books);  // Guardar los libros actualizados
+    this.booksSubject.next(books);  // Emitir los cambios
   }
 
-  /**
-   * Delete a book from the `libros` table
-   * @param id
-   */
-  async deleteBook(id: number) {
+  // Eliminar un libro
+  async deleteBook(id: number): Promise<void> {
+    let books = this.booksSubject.getValue();  // Obtener el valor actual de los libros
+    books = books.filter(book => book.id !== id);  // Filtrar el libro que se eliminará
+    await this.storage?.set('books', books);  // Guardar los libros actualizados
+    this.booksSubject.next(books);  // Emitir los cambios
+  }
+
+  // Capturar una imagen con la cámara o elegir de la galería
+  async takeOrSelectPhoto(fromGallery: boolean): Promise<string | null> {
     try {
-      if (this.db) {
-        const statement = 'DELETE FROM libros WHERE id = ?';
-        await this.db.run(statement, [id]);
-        console.log('Book deleted with ID:', id);
-      }
+      const image = await Camera.getPhoto({
+        quality: 90,
+        allowEditing: true,
+        resultType: CameraResultType.Base64,  // Guardamos en Base64 para almacenamiento local
+        source: fromGallery ? CameraSource.Photos : CameraSource.Camera
+      });
+
+      return `data:image/jpeg;base64,${image.base64String}`;
     } catch (error) {
-      console.error('Error deleting the book:', error);
+      console.error('Error al capturar imagen:', error);
+      return null;
     }
   }
 }
