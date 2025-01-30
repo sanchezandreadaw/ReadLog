@@ -28,42 +28,41 @@ export class BookService {
     this.booksSubject.next(books);  // Emitir los libros cargados
   }
 
-  // Obtener todos los libros
+
   getBooks() {
-    return this.booksSubject.asObservable();  // Devuelve un observable
+    return this.booksSubject.asObservable();
   }
 
-  // Obtener un libro por ID
   async getBookById(id: number): Promise<Libro | undefined> {
-    const books = this.booksSubject.getValue(); // Obtener el valor actual de los libros
+    const books = this.booksSubject.getValue();
     return books.find(book => book.id === id);
   }
 
-  // Agregar un nuevo libro
+
   async addBook(book: Libro): Promise<void> {
-    const books = this.booksSubject.getValue();  // Obtener el valor actual de los libros
-    books.push(book);  // Agregar el nuevo libro al arreglo
-    await this.storage?.set('books', books);  // Guardar los libros en el almacenamiento
+    const books = this.booksSubject.getValue();
+    books.push(book);
+    await this.storage?.set('books', books);
     this.booksSubject.next(books);  // Emitir los cambios
   }
 
   // Editar un libro
   async updateBook(updatedBook: Libro): Promise<void> {
-    let books = this.booksSubject.getValue();  // Obtener el valor actual de los libros
-    books = books.map(book => book.id === updatedBook.id ? updatedBook : book);  // Actualizar el libro
+    let books = this.booksSubject.getValue();
+    books = books.map(book => book.id === updatedBook.id ? updatedBook : book);
     await this.storage?.set('books', books);  // Guardar los libros actualizados
     this.booksSubject.next(books);  // Emitir los cambios
   }
 
   // Eliminar un libro
-  async deleteBook(id: number): Promise<void> {
-    let books = this.booksSubject.getValue();  // Obtener el valor actual de los libros
-    books = books.filter(book => book.id !== id);  // Filtrar el libro que se eliminará
-    await this.storage?.set('books', books);  // Guardar los libros actualizados
-    this.booksSubject.next(books);  // Emitir los cambios
+  async deleteBook(bookUser: Libro): Promise<void> {
+    let books = this.booksSubject.getValue();
+    books = books.filter(book => book !== bookUser);
+    await this.storage?.set('books', books);
+    this.booksSubject.next(books);  //
   }
 
-  // Capturar una imagen con la cámara o elegir de la galería
+
   async takeOrSelectPhoto(fromGallery: boolean): Promise<string | null> {
     try {
       const image = await Camera.getPhoto({

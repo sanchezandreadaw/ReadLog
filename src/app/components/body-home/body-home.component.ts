@@ -1,31 +1,51 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { IonCard, IonCardHeader, IonCardTitle, IonSearchbar, IonRow, IonCol, IonCardSubtitle, IonCardContent, IonGrid, IonContent } from "@ionic/angular/standalone";
-import { BookService } from 'src/app/services/book.service'; // Importar el servicio
+import { IonCard, IonCardHeader, IonCardTitle, IonSearchbar, IonIcon, IonRow, IonCol,
+  IonCardSubtitle, IonCardContent, IonGrid, IonContent, IonButton, IonAlert } from "@ionic/angular/standalone";
+import { BookService } from 'src/app/services/book.service';
 import { Libro } from 'src/app/models/libro';
-import { Subscription } from 'rxjs';  // Importar Subscription
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'body-home',
   templateUrl: './body-home.component.html',
   styleUrls: ['./body-home.component.scss'],
   standalone: true,
-  imports: [IonCard, IonCardHeader, IonCardTitle, IonSearchbar, IonContent, IonGrid, IonRow, IonCol, IonCardSubtitle, IonCardContent]
+  imports: [IonButton, IonCard, IonCardHeader,
+     IonCardTitle, IonSearchbar, IonContent, IonGrid, IonIcon, IonRow, IonCol, IonCardSubtitle, IonCardContent]
 })
 export class BodyHomeComponent implements OnInit, OnDestroy {
   libros: Libro[] = [];
   default_img_url = "https://ionicframework.com/docs/img/demos/card-media.png";
   private librosSubscription: Subscription = new Subscription();  // Para manejar la suscripción
 
-  constructor(private bookService: BookService) {}  // Inyectar el BookService
+  public alertButtons = [
+    {
+      text: 'No',
+      cssClass: 'alert-button-cancel',
+    },
+    {
+      text: 'Sí',
+      cssClass: 'alert-button-confirm',
+    },
+  ];
+  titulo_libro:string = "";
+  header_alert:string = "";
+
+  constructor(private bookService: BookService) {}
 
   ngOnInit() {
-    // Nos suscribimos al Observable de libros
+
     this.librosSubscription = this.bookService.getBooks().subscribe((libros: Libro[]) => {
       this.libros = libros;  // Actualizamos los libros cuando cambian
     });
 
     // Cargar los libros inicialmente
     this.bookService.loadBooks();  // Cargar los libros desde el almacenamiento
+  }
+
+
+  async deleteBook(book: Libro) {
+    this.bookService.deleteBook(book);
   }
 
   ngOnDestroy() {

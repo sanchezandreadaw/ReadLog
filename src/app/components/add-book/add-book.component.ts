@@ -28,7 +28,7 @@ export class AddBookComponent implements OnInit {
   generos_array: string[] = generos;
   libro: Libro;
   libros: Libro[] = [];
-  private librosSubscription: Subscription = new Subscription(); // Para manejar la suscripción
+  private librosSubscription: Subscription = new Subscription();
 
   constructor(
     private router: Router,
@@ -51,18 +51,17 @@ export class AddBookComponent implements OnInit {
       this.libros = libros;  // Actualizamos los libros cuando cambian
     });
 
-    // Cargar los libros inicialmente
     this.bookService.loadBooks();  // Cargar los libros desde el almacenamiento
   }
 
   ngOnDestroy() {
-    // No olvides cancelar la suscripción al destruir el componente
+
     if (this.librosSubscription) {
       this.librosSubscription.unsubscribe();
     }
   }
 
-  // 📷 Método para tomar una foto o seleccionar de la galería
+
   async takePicture() {
     try {
       const image = await Camera.getPhoto({
@@ -71,20 +70,19 @@ export class AddBookComponent implements OnInit {
         resultType: CameraResultType.DataUrl,
       });
       this.image = image.dataUrl;
-      this.libro.ruta_img = this.image; // Guardar la imagen en el objeto libro
+      this.libro.ruta_img = this.image;
     } catch (error) {
       console.error('Error al tomar la foto:', error);
     }
   }
 
-  // 📚 Método para agregar un libro
   async addBook(addBookForm: NgForm) {
     if (addBookForm.valid) {
       try {
-        this.libro.id = Date.now(); // Generar un ID único basado en la fecha actual
-        await this.bookService.addBook(this.libro); // Guardar el libro en storage
+        this.libro.id = Date.now();
+        await this.bookService.addBook(this.libro);
 
-        // Mostrar mensaje de éxito
+
         const toast = await this.toastController.create({
           message: 'El libro se ha añadido correctamente.',
           duration: 2000,
@@ -93,7 +91,6 @@ export class AddBookComponent implements OnInit {
         });
         await toast.present();
 
-        // Redirigir a la pantalla principal
         this.router.navigate(['/']);
       } catch (error) {
         console.error('Error al añadir el libro:', error);
@@ -101,9 +98,11 @@ export class AddBookComponent implements OnInit {
     }
   }
 
+
   goHome() {
     this.router.navigate(['/']);
   }
+
 
   deleteImage() {
     this.image = undefined;
