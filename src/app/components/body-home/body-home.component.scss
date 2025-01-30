@@ -9,6 +9,8 @@
   --ion-item-background: #333;
   --ion-border-color: #444;
   --font-family: 'Arial', sans-serif;
+  --ion-card-title-color: #a5d6a7; /* Verde suave para el título */
+  --ion-card-subtitle-color: #80deea; /* Azul claro y suave para el subtítulo */
 }
 
 ion-card {
@@ -41,47 +43,40 @@ ion-card img {
   transition: transform 0.3s ease-in-out;
 }
 
-ion-card:hover img {
-  transform: scale(1.1);
-}
-
 ion-card-header {
   background-color: var(--ion-card-header-background);
-  padding: 20px;
   text-align: center;
   border-radius: 15px;
-  margin-bottom: 15px;
 }
 
 ion-card-title {
-  font-size: 1.7rem;
+  font-size: 1.5rem;
   font-weight: 800;
-  color: var(--ion-card-title-color);
+  color: #FFF9C4; /* Amarillo pastel claro */
   font-style: italic;
 }
 
 ion-card-subtitle {
   font-size: 1.3rem;
-  color: var(--ion-card-subtitle-color);
+  color: #B0BEC5; /* Gris suave con tono rosado */
   font-weight: 500;
-  margin-bottom: 10px;
-  text-transform: capitalize;
-}
-
-ion-card-content {
-  font-size: 1.1rem;
-  color: var(--ion-text-color);
-  background-color: var(--ion-item-background);
-  padding: 15px;
-  border-radius: 12px;
-  text-align: center;
-  flex-grow: 1;
 }
 
 .genre {
   font-size: 1.2rem;
   font-weight: 700;
   text-align: center;
+  color: #9575CD; /* Morado suave */
+}
+
+
+ion-card-content {
+  font-size: 1.1rem;
+  color: var(--ion-text-color);
+  background-color: var(--ion-item-background);
+  border-radius: 12px;
+  text-align: center;
+  flex-grow: 1;
 }
 
 ion-button {
