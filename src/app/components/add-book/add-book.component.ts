@@ -108,16 +108,28 @@ export class AddBookComponent implements OnInit {
 
         this.router.navigate(['/']);
       } catch (error) {
-        const error_toast = await this.createToast(`Error al agregar el libro ${error}`, 3000, 'middle', 'danger');
-        await error_toast.present();
+        this.alertService.createAlert(
+          `Error`,
+          `No se ha podido añadir ${this.libro.titulo}`,
+          3000,
+          'error',
+          false,
+          true
+        )
         console.error('Error al añadir el libro:', error);
       }
     } else {
       const invalidFields = Object.keys(addBookForm.controls).filter(field => addBookForm.controls[field].invalid);
       const invalidFieldsMessage = invalidFields.length > 0 ? `Campos no válidos: ${invalidFields.join(', ')}` : 'Los campos del formulario no son válidos';
 
-      const invalid_form_toast = await this.createToast(invalidFieldsMessage, 3000, 'middle', 'danger');
-      await invalid_form_toast.present();
+      this.alertService.createAlert(
+        `Error`,
+        invalidFieldsMessage,
+        3000,
+        'error',
+        false,
+        true
+      )
 
     }
   }
