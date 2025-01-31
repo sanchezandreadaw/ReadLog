@@ -11,25 +11,16 @@ import { Subscription } from 'rxjs';
   styleUrls: ['./body-home.component.scss'],
   standalone: true,
   imports: [IonButton, IonCard, IonCardHeader,
-     IonCardTitle, IonSearchbar, IonContent, IonGrid, IonIcon, IonRow, IonCol, IonAlert, IonCardSubtitle, IonCardContent]
+     IonCardTitle, IonSearchbar, IonContent, IonGrid, IonIcon, IonRow, IonCol, IonCardSubtitle, IonCardContent]
 })
 export class BodyHomeComponent implements OnInit, OnDestroy {
   libros: Libro[] = [];
   default_img_url = "https://ionicframework.com/docs/img/demos/card-media.png";
-  private librosSubscription: Subscription = new Subscription();  // Para manejar la suscripción
+  private librosSubscription: Subscription = new Subscription();
 
-  public alertButtons = [
-    {
-      text: 'No',
-      cssClass: 'alert-button-cancel',
-    },
-    {
-      text: 'Sí',
-      cssClass: 'alert-button-confirm',
-    },
-  ];
-  titulo_libro:string = "";
-  header_alert:string = "";
+
+  alert_header:string = '';
+
 
   constructor(private bookService: BookService) {}
 
@@ -43,6 +34,12 @@ export class BodyHomeComponent implements OnInit, OnDestroy {
     this.bookService.loadBooks();  // Cargar los libros desde el almacenamiento
   }
 
+
+  selectBook(titulo_libro:string){
+    if(titulo_libro !== ''){
+      this.alert_header = `¿Eliminar ${titulo_libro}?`;
+    }
+  }
 
   async deleteBook(book: Libro) {
     this.bookService.deleteBook(book);

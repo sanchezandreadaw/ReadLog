@@ -10,6 +10,7 @@ import { Libro } from 'src/app/models/libro';
 import { Router } from '@angular/router';
 import { BookService } from 'src/app/services/book.service'; // Importar el servicio
 import { Subscription } from 'rxjs';  // Importar Subscription
+import { AlertService } from 'src/app/services/alert.service';
 
 @Component({
   selector: 'app-add-book',
@@ -32,7 +33,8 @@ export class AddBookComponent implements OnInit {
   constructor(
     private router: Router,
     private toastController: ToastController,
-    private bookService: BookService
+    private bookService: BookService,
+    private alertService : AlertService
   ) {
     this.libro = {
       id: 0,
@@ -95,9 +97,14 @@ export class AddBookComponent implements OnInit {
         this.libro.id = Date.now();
         await this.bookService.addBook(this.libro);
 
-
-        const success_toast = await this.createToast('Libro añadido correctamente', 2000, 'middle', 'success');
-        await success_toast.present();
+        this.alertService.createAlert(
+          `Confirmación`,
+          `El libro ${this.libro.titulo} guardado con éxito`,
+          2000,
+          'success',
+          false,
+          false
+        )
 
         this.router.navigate(['/']);
       } catch (error) {

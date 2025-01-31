@@ -35,3 +35,17 @@
 /* @import "@ionic/angular/css/palettes/dark.always.css"; */
 /* @import "@ionic/angular/css/palettes/dark.class.css"; */
 @import '@ionic/angular/css/palettes/dark.system.css';
+
+/* Personalización global para el fondo oscuro en alertas */
+.swal2-popup {
+  background-color: #333 !important;
+  color: white !important;
+}
+
+.swal2-title {
+  color: white !important;
+}
+
+.swal2-actions {
+  background-color: #444 !important;
+}
