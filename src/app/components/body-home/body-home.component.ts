@@ -1,9 +1,10 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { IonCard, IonCardHeader, IonCardTitle, IonSearchbar, IonIcon, IonRow, IonCol, IonAlert,
+import { IonCard, IonCardHeader, IonCardTitle, IonSearchbar, IonIcon, IonRow, IonCol,
   IonCardSubtitle, IonCardContent, IonGrid, IonContent, IonButton, } from "@ionic/angular/standalone";
 import { BookService } from 'src/app/services/book.service';
 import { Libro } from 'src/app/models/libro';
 import { Subscription } from 'rxjs';
+import { AlertService } from 'src/app/services/alert.service';
 
 @Component({
   selector: 'body-home',
@@ -22,7 +23,7 @@ export class BodyHomeComponent implements OnInit, OnDestroy {
   alert_header:string = '';
 
 
-  constructor(private bookService: BookService) {}
+  constructor(private bookService: BookService, private alertService: AlertService) {}
 
   ngOnInit() {
 
@@ -34,15 +35,29 @@ export class BodyHomeComponent implements OnInit, OnDestroy {
     this.bookService.loadBooks();  // Cargar los libros desde el almacenamiento
   }
 
-
-  selectBook(titulo_libro:string){
-    if(titulo_libro !== ''){
-      this.alert_header = `¿Eliminar ${titulo_libro}?`;
-    }
-  }
-
   async deleteBook(book: Libro) {
-    this.bookService.deleteBook(book);
+    this.alertService.createAlert(
+      `¿Estás seguro/a?`,
+      `El libro ${book.titulo} será eliminado`,
+      undefined,
+      'warning',
+      false,
+      true,
+      true
+    ).then((result) => {
+      if(result.isConfirmed) {
+        this.bookService.deleteBook(book);
+        this.alertService.createAlert(
+          `¡Eliminado!`,
+          `El libro ${book.titulo} se ha eliminado correctamente`,
+          2000,
+          'success',
+          false,
+          false,
+          false,
+        );
+      }
+    })
   }
 
   ngOnDestroy() {
