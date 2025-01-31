@@ -77,10 +77,13 @@
     @if(image) {
       <div class="image-container">
         <img [src]="image" alt="Imagen seleccionada" class="book-image">
-        <ion-button fill="outline" color="danger" class="delete-button" (click)="deleteImage()">Eliminar Imagen</ion-button>
+        <ion-button fill="outline" color="danger" class="delete-button" (click)="deleteImage()">
+          <ion-icon name="trash-outline"></ion-icon>
+        </ion-button>
       </div>
     }
 
-    <ion-button type="submit" class="submit-button" [disabled]="addBookForm.invalid">Agregar Libro</ion-button>
+      <ion-button type="submit" class="submit-button" [disabled]="addBookForm.invalid">Agregar Libro</ion-button>
+
   </form>
 </ion-content>
