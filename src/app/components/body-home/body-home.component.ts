@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { IonCard, IonCardHeader, IonCardTitle, IonSearchbar, IonIcon, IonRow, IonCol,
-  IonCardSubtitle, IonCardContent, IonGrid, IonContent, IonButton, IonAlert } from "@ionic/angular/standalone";
+import { IonCard, IonCardHeader, IonCardTitle, IonSearchbar, IonIcon, IonRow, IonCol, IonAlert,
+  IonCardSubtitle, IonCardContent, IonGrid, IonContent, IonButton, } from "@ionic/angular/standalone";
 import { BookService } from 'src/app/services/book.service';
 import { Libro } from 'src/app/models/libro';
 import { Subscription } from 'rxjs';
@@ -11,7 +11,7 @@ import { Subscription } from 'rxjs';
   styleUrls: ['./body-home.component.scss'],
   standalone: true,
   imports: [IonButton, IonCard, IonCardHeader,
-     IonCardTitle, IonSearchbar, IonContent, IonGrid, IonIcon, IonRow, IonCol, IonCardSubtitle, IonCardContent]
+     IonCardTitle, IonSearchbar, IonContent, IonGrid, IonIcon, IonRow, IonCol, IonAlert, IonCardSubtitle, IonCardContent]
 })
 export class BodyHomeComponent implements OnInit, OnDestroy {
   libros: Libro[] = [];

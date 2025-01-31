@@ -16,9 +16,13 @@
                 <p class="genre">Género: {{ libro.genero }}</p>
               </ion-card-content>
               <div class="container-icons-update-delete">
-                <ion-button (click)="deleteBook(libro)" id="present-alert">
+
+
+                <ion-button id="present-alert" (click)="deleteBook(libro)" id="present-alert">
                   <ion-icon name="trash-outline" class="icon-trash"></ion-icon>
                 </ion-button>
+                <ion-alert trigger="present-alert" class="custom-alert" header="Are you sure?" [buttons]="alertButtons"></ion-alert>
+
 
                 <ion-button>
                   <ion-icon name="pencil-outline" class="icon-pencil"></ion-icon>
