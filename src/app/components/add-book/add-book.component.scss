@@ -1,166 +1,161 @@
+/* General Styles */
 ion-content {
-  padding: 10px;
+
+  background-color: #121212;
+  color: #e0e0e0;
   overflow-y: auto;
+  border-radius: 12px;
+}
+
+/* Header */
+ion-header {
+  background-color: #1e1e1e;
+  padding-top: 50px;
+  justify-content: center;
 }
 
 ion-title {
-  font-size: 1.2rem;
+  font-size: 1rem;
+  font-weight: 700;
+  color: #fff;
+  text-align: center;
+  margin-bottom: 20px;
 }
 
-ion-header {
-  line-height: 100px;
-  align-items: center;
-  align-content: center;
+
+/* Toolbar */
+ion-toolbar {
+  --background: #1e1e1e;
 }
 
+/* Form Item Styling */
 ion-item {
-  margin: 15px 0;
+  margin: 16px 0;
+  padding: 4px;
+  background-color: #2b2b2b;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
+ion-input{
+  margin-left: 20px;
+}
+
+ion-input,
+ion-select,
+ion-datetime {
+  background-color: #1c1c1c;
+  color: #e0e0e0;
+  padding: 12px;
+  font-size: 1rem;
+  border-radius: 8px;
+  width: 100%;
+}
+
+ion-label {
+  color: #e0e0e0;
+  font-size: 1.1rem;
+  font-weight: 500;
+}
+
+/* Button Styling */
+ion-button {
+  background-color: transparent !important;
+  border-radius: 80px !important;
+  padding: 3px;
+  font-size: 15px !important;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  display: block;
+
+
+}
+ion-button:hover {
+  background-color: #4A90E2;
+  color: #fff;
+}
+
+.submit-button {
+  color: #fff;
+  width: 70%;  /* Botón más pequeño y centrado */
+  margin: 30px auto;
+  border-radius: 50px;
+  padding: 14px;
+  font-size: 1.2rem;
+  font-weight: 600;
+  transition: background-color 0.3s ease;
+}
+
+.submit-button:hover {
+  background-color: #357ABD;
+}
+
+/* Image Preview & Delete Button */
 .image-container {
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-top: 10px;
+  margin-top: 20px;
 }
 
 .book-image {
-  width: 50%;
-  margin-bottom: 10px;
+  width: 60%;
+  max-width: 250px;
+  border-radius: 10px;
+  margin-bottom: 15px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 .delete-button {
+  background-color: #D0021B;
   color: white;
+  border-radius: 20px;
+  padding: 10px 20px;
+  margin-top: 10px;
+  font-weight: 600;
+  text-align: center;
 }
 
-.submit-button {
-  display: block;
-  margin: 20px auto;
-}
-
-@supports (padding: env(safe-area-inset-top)) {
-  ion-content {
-    padding-top: env(safe-area-inset-top, 30px);
-  }
-}
-
+/* Media Queries for Responsiveness */
 @media (max-width: 400px) {
-  .titulo-add-book {
-    font-size: 1.2rem;
-  }
-
-  .container-add-book {
-    flex-direction: column;
-    align-items: center;
-  }
-
-  ion-icon {
-    font-size: 20px;
-    margin-left: 0;
-  }
-
-  ion-item {
-    margin: 8px 0;
-  }
-
-  ion-datetime {
-    height: 40px;
-  }
-}
-
-@media (max-width: 599px) {
-  .titulo-add-book {
-    font-size: 1.3rem;
-  }
-
-  .container-add-book {
-    flex-direction: column;
-    gap: 10px;
-  }
-
-  ion-icon {
-    font-size: 22px;
-  }
-
-  ion-item {
-    margin: 10px 0;
+  ion-title {
+    font-size: 1.5rem;
   }
 
   ion-button {
     font-size: 1rem;
   }
+
+  .submit-button {
+    font-size: 1rem;
+    width: 80%;
+  }
 }
 
-@media (min-width: 600px) and (max-width: 1023px) {
-  .titulo-add-book {
-    font-size: 1.4rem;
-  }
-
-  .container-add-book {
-    gap: 15px;
-  }
-
-  ion-item {
-    margin: 12px 0;
+@media (max-width: 600px) {
+  ion-title {
+    font-size: 1.6rem;
   }
 
   ion-button {
     font-size: 1.1rem;
   }
+
+  .submit-button {
+    font-size: 1.1rem;
+    width: 80%;
+  }
 }
 
 @media (min-width: 1024px) {
-  .titulo-add-book {
-    font-size: 1.5rem;
-  }
-
-  .container-add-book {
-    gap: 20px;
-  }
-
-  ion-icon {
-    font-size: 26px;
-  }
-
-  ion-item {
-    margin: 15px 0;
+  ion-title {
+    font-size: 2rem;
   }
 
   ion-button {
     font-size: 1.2rem;
   }
-}
 
-@media (orientation: landscape) {
-  ion-item {
-    margin: 8px 0;
-  }
-
-  .titulo-add-book {
-    font-size: 1.5rem;
-  }
-
-  .container-add-book {
-    flex-direction: row;
-    justify-content: space-between;
-  }
-}
-
-@media (orientation: portrait) {
-  ion-item {
-    margin: 10px 0;
-  }
-
-  .titulo-add-book {
+  .submit-button {
     font-size: 1.3rem;
-  }
-
-  .container-add-book {
-    flex-direction: column;
-    align-items: center;
-  }
-
-  ion-button {
-    font-size: 1rem;
   }
 }

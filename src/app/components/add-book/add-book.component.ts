@@ -1,7 +1,6 @@
 import {
   IonContent, IonHeader, IonToolbar, IonTitle, IonIcon, IonList, IonDatetime,
-  IonButton, IonSelectOption, IonSelect, IonButtons, IonItem, IonLabel, IonInput
-} from '@ionic/angular/standalone';
+  IonButton, IonSelectOption, IonSelect, IonButtons, IonItem, IonLabel, IonInput, IonDatetimeButton, IonModal } from '@ionic/angular/standalone';
 import { Component, OnInit } from '@angular/core';
 import { ToastController } from '@ionic/angular';
 import { Camera, CameraResultType, CameraSource } from '@capacitor/camera';
@@ -17,9 +16,9 @@ import { Subscription } from 'rxjs';  // Importar Subscription
   templateUrl: './add-book.component.html',
   styleUrls: ['./add-book.component.scss'],
   standalone: true,
-  imports: [
+  imports: [IonModal, IonDatetimeButton,
     IonSelectOption, IonSelect, IonContent, IonToolbar, IonDatetime, IonTitle,
-    IonButton, IonItem, IonLabel, IonInput, IonIcon, IonHeader, IonButtons,
+    IonButton, IonItem, IonLabel, IonInput, IonIcon, IonHeader, IonButtons, IonDatetimeButton,
     FormsModule,
   ]
 })
@@ -45,6 +44,9 @@ export class AddBookComponent implements OnInit {
     };
   }
 
+  today: string = new Date().toISOString();
+
+
   ngOnInit() {
     // Nos suscribimos a los libros en el servicio
     this.librosSubscription = this.bookService.getBooks().subscribe((libros: Libro[]) => {
@@ -52,6 +54,17 @@ export class AddBookComponent implements OnInit {
     });
 
     this.bookService.loadBooks();  // Cargar los libros desde el almacenamiento
+  }
+
+  createToast(message: string, duration: number, position: 'top' | 'bottom' | 'middle', color: string) {
+    const toast = this.toastController.create({
+      message: message,
+      duration: duration,
+      position: position,
+      color: color
+    });
+
+    return toast;
   }
 
   ngOnDestroy() {
@@ -83,18 +96,22 @@ export class AddBookComponent implements OnInit {
         await this.bookService.addBook(this.libro);
 
 
-        const toast = await this.toastController.create({
-          message: 'El libro se ha añadido correctamente.',
-          duration: 2000,
-          position: 'top',
-          color: 'success',
-        });
-        await toast.present();
+        const success_toast = await this.createToast('Libro añadido correctamente', 2000, 'middle', 'success');
+        await success_toast.present();
 
         this.router.navigate(['/']);
       } catch (error) {
+        const error_toast = await this.createToast(`Error al agregar el libro ${error}`, 3000, 'middle', 'danger');
+        await error_toast.present();
         console.error('Error al añadir el libro:', error);
       }
+    } else {
+      const invalidFields = Object.keys(addBookForm.controls).filter(field => addBookForm.controls[field].invalid);
+      const invalidFieldsMessage = invalidFields.length > 0 ? `Campos no válidos: ${invalidFields.join(', ')}` : 'Los campos del formulario no son válidos';
+
+      const invalid_form_toast = await this.createToast(invalidFieldsMessage, 3000, 'middle', 'danger');
+      await invalid_form_toast.present();
+
     }
   }
 

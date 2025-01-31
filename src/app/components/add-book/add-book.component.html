@@ -12,7 +12,7 @@
 <ion-content class="ion-padding">
   <form #addBookForm="ngForm" class="form-container" (submit)="addBook(addBookForm)">
     <ion-item>
-      <ion-label position="floating">Título</ion-label>
+      <ion-label >Título</ion-label>
       <ion-input type="text" required [(ngModel)]="libro.titulo" minlength="3" name="titulo" #titulo="ngModel"></ion-input>
       @if(titulo.invalid && (titulo.touched || titulo.dirty)) {
         @if(titulo.errors?.['required']) {
@@ -29,7 +29,7 @@
     </ion-item>
 
     <ion-item>
-      <ion-label position="floating">Autor</ion-label>
+      <ion-label >Autor</ion-label>
       <ion-input type="text" required [(ngModel)]="libro.autor" name="autor" minlength="3" #autor="ngModel"></ion-input>
         @if (autor.invalid && (autor.touched || autor.dirty)) {
           @if(autor.errors?.['required']) {
@@ -56,14 +56,20 @@
     </ion-item>
 
     <ion-item>
-      <ion-label>Fecha en que terminaste el libro</ion-label>
+      <ion-label>Fecha de fin del libro </ion-label>
+      <ion-datetime-button datetime="date"></ion-datetime-button>
+
+      <ion-modal [keepContentsMounted]="true">
+        <ng-template>
+          <ion-datetime
+            id="date" presentation="date"></ion-datetime>
+
+        </ng-template>
+      </ion-modal>
     </ion-item>
 
-    <ion-item>
-      <ion-datetime presentation="date" required [(ngModel)]="libro.fecha" name="fecha" locale="es-ES"></ion-datetime>
-    </ion-item>
 
-    <ion-item>
+        <ion-item>
       <ion-label>Imagen</ion-label>
       <ion-button (click)="takePicture()">Seleccionar Imagen</ion-button>
     </ion-item>
@@ -75,6 +81,6 @@
       </div>
     }
 
-    <ion-button expand="full" type="submit" class="submit-button">Agregar Libro</ion-button>
+    <ion-button type="submit" class="submit-button" [disabled]="addBookForm.invalid">Agregar Libro</ion-button>
   </form>
 </ion-content>
