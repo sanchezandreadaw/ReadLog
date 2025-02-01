@@ -5,6 +5,9 @@ import { BookService } from 'src/app/services/book.service';
 import { Libro } from 'src/app/models/libro';
 import { Subscription } from 'rxjs';
 import { AlertService } from 'src/app/services/alert.service';
+import { Router } from '@angular/router';
+import { DatePipe } from '@angular/common';
+import { FechaPipe } from 'src/app/pipes/fecha.pipe';
 
 @Component({
   selector: 'body-home',
@@ -12,7 +15,7 @@ import { AlertService } from 'src/app/services/alert.service';
   styleUrls: ['./body-home.component.scss'],
   standalone: true,
   imports: [IonButton, IonCard, IonCardHeader,
-     IonCardTitle, IonSearchbar, IonContent, IonGrid, IonIcon, IonRow, IonCol, IonCardSubtitle, IonCardContent]
+     IonCardTitle, IonSearchbar, IonContent, IonGrid, IonIcon, IonRow, IonCol, FechaPipe, IonCardSubtitle, IonCardContent]
 })
 export class BodyHomeComponent implements OnInit, OnDestroy {
   libros: Libro[] = [];
@@ -23,7 +26,7 @@ export class BodyHomeComponent implements OnInit, OnDestroy {
   alert_header:string = '';
 
 
-  constructor(private bookService: BookService, private alertService: AlertService) {}
+  constructor(private bookService: BookService, private alertService: AlertService, private router:Router) {}
 
   ngOnInit() {
 
@@ -58,6 +61,11 @@ export class BodyHomeComponent implements OnInit, OnDestroy {
         );
       }
     })
+  }
+
+  goToEditComponent(libro:Libro) {
+    this.bookService.setLibroSeleccionado(libro);
+    this.router.navigate(['/update-book'])
   }
 
   ngOnDestroy() {

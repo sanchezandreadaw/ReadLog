@@ -8,8 +8,8 @@ import { generos } from 'src/app/data/db_generos';
 import { FormsModule, NgForm, ReactiveFormsModule } from '@angular/forms';
 import { Libro } from 'src/app/models/libro';
 import { Router } from '@angular/router';
-import { BookService } from 'src/app/services/book.service'; // Importar el servicio
-import { Subscription } from 'rxjs';  // Importar Subscription
+import { BookService } from 'src/app/services/book.service';
+import { Subscription } from 'rxjs';
 import { AlertService } from 'src/app/services/alert.service';
 
 @Component({
@@ -58,6 +58,12 @@ export class AddBookComponent implements OnInit {
     this.bookService.loadBooks();  // Cargar los libros desde el almacenamiento
   }
 
+  onFechaChange(event: any) {
+    if (event && event.detail && event.detail.value) {
+      this.libro.fecha = new Date(event.detail.value);
+    }
+  }
+
   createToast(message: string, duration: number, position: 'top' | 'bottom' | 'middle', color: string) {
     const toast = this.toastController.create({
       message: message,
@@ -95,6 +101,7 @@ export class AddBookComponent implements OnInit {
     if (addBookForm.valid) {
       try {
         this.libro.id = Date.now();
+        console.log(`fecha seleccionada ${this.libro.fecha}`);
         await this.bookService.addBook(this.libro);
 
         this.alertService.createAlert(

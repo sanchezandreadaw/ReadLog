@@ -160,6 +160,16 @@ ion-col[size="12"] {
   margin: 0;
 }
 
+.fecha-libro {
+  font-size: 1.2rem;
+  color: #B0BEC5;
+  background-color: var(--ion-item-background);
+  border-radius: 8px;
+  text-align: center;
+  font-weight: 400;
+  margin: 0;
+}
+
 ion-col[size-md="6"] {
   flex: 0 0 48%;
 }

@@ -32,17 +32,10 @@
     </ion-item>
 
     <ion-item>
-      <ion-label>Fecha de fin del libro </ion-label>
-      <ion-datetime-button datetime="date"></ion-datetime-button>
-
-      <ion-modal [keepContentsMounted]="true">
-        <ng-template>
-          <ion-datetime [(ngModel)]="libro.fecha"
-            id="date" presentation="date"></ion-datetime>
-
-        </ng-template>
-      </ion-modal>
+      <ion-datetime [(ngModel)]="libro.fecha" name="fecha" #fecha="ngModel" presentation="date" id="date"></ion-datetime>
     </ion-item>
+
+
 
 
         <ion-item>

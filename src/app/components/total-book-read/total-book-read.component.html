@@ -1,3 +1,25 @@
-<p>
-  total-book-read works!
-</p>
+<div class="reading-info-container">
+  <div class="container-header">
+    <ion-button (click)="goHome()">
+      <ion-icon slot="icon-only" name="arrow-back-outline"></ion-icon>
+    </ion-button>
+  </div>
+
+  <div class="header">
+    <h2 class="reading-title">Progreso de lectura</h2>
+  </div>
+
+  <div class="message-container">
+    @if (totalReadBooks > 0) {
+      <p class="message success">🎉 ¡Enhorabuena! Has leído un total de <strong>{{ totalReadBooks }}</strong> libros. Sigue así. 🚀</p>
+    } @else {
+      <p class="message warning">📖 Todavía no has leído ningún libro. ¡Empieza hoy mismo tu próxima aventura literaria! 😊</p>
+    }
+  </div>
+
+  <div class="statistics">
+    <p><span role="img" aria-label="upward trend">🚀</span> Libros leídos esta semana: <strong>{{ booksReadThisWeek }}</strong></p>
+    <p><span role="img" aria-label="chart">📊</span> Libros leídos este mes: <strong>{{ booksReadThisMonth }}</strong></p>
+    <p><span role="img" aria-label="rocket">🌟</span> Libros leídos este año: <strong>{{ booksReadThisYear }}</strong></p>
+  </div>
+</div>

@@ -5,6 +5,7 @@ ion-content {
   color: #e0e0e0;
   overflow-y: auto;
   border-radius: 12px;
+  height: 100vh;
 }
 
 /* Header */
@@ -42,11 +43,19 @@ ion-input{
 }
 
 ion-input,
-ion-select,
-ion-datetime {
+ion-select
+{
   background-color: #1c1c1c;
   color: #e0e0e0;
   padding: 12px;
+  font-size: 1rem;
+  border-radius: 8px;
+  width: 100%;
+}
+
+ion-datetime{
+  background-color: #1c1c1c;
+  color: #e0e0e0;
   font-size: 1rem;
   border-radius: 8px;
   width: 100%;
@@ -84,6 +93,8 @@ ion-button:hover {
   display: block;
   margin: auto;
   transition: background-color 0.3s ease;
+  position: sticky;
+  bottom: 20px;
 }
 
 .submit-button:hover {
@@ -99,7 +110,7 @@ ion-button:hover {
 
 .book-image {
   width: 70%;
-  max-width: 250px;
+  max-height: 200px;
   display: block;
   margin:auto;
   border-radius: 10px;

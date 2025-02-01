@@ -13,7 +13,11 @@
                 <ion-card-subtitle>{{ libro.autor }}</ion-card-subtitle>
               </ion-card-header>
               <ion-card-content>
-                <p class="genre">Género: {{ libro.genero }}</p>
+                <p class="genre">{{ libro.genero }}</p>
+              </ion-card-content>
+
+              <ion-card-content>
+                <p class="fecha-libro">{{ libro.fecha | fecha }}</p>
               </ion-card-content>
               <div class="container-icons-update-delete">
 
@@ -25,7 +29,7 @@
 
 
 
-                <ion-button>
+                <ion-button (click)="goToEditComponent(libro)">
                   <ion-icon name="pencil-outline" class="icon-pencil"></ion-icon>
                 </ion-button>
               </div>
