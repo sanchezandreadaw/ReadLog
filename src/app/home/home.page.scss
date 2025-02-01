@@ -8,6 +8,12 @@ footer-home {
   background-color: var(--ion-color-light);
 }
 
+a{
+  text-decoration: none;
+  font-size: 1.3rem;
+  color: #fff;
+}
+
 /* Solución para dispositivos con muesca o notch */
 @supports (padding: env(safe-area-inset-top)) {
   ion-content {

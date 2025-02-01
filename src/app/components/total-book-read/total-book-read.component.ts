@@ -2,13 +2,14 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { BookService } from 'src/app/services/book.service';
 import { IonTitle, IonHeader, IonIcon, IonButton, IonToolbar, IonButtons } from "@ionic/angular/standalone";
 import { Router } from '@angular/router';
+import { FooterHomeComponent } from "../footer-home/footer-home.component";
 
 @Component({
   selector: 'app-total-book-read',
   templateUrl: './total-book-read.component.html',
   styleUrls: ['./total-book-read.component.scss'],
   standalone: true,
-  imports: [ IonIcon, IonButton]
+  imports: [IonIcon, IonButton]
 })
 export class TotalBookReadComponent  implements OnInit {
 
