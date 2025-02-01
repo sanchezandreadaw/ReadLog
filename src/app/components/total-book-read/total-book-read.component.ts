@@ -29,7 +29,7 @@ export class TotalBookReadComponent  implements OnInit {
     });
 
     this.bookService.booksReadThisMonth$.subscribe(total => {
-      this.booksReadThisWeek = total;
+      this.booksReadThisMonth = total;
     });
 
     this.bookService.booksReadThisYear$.subscribe(total => {
