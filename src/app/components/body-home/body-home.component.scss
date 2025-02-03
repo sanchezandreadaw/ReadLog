@@ -3,12 +3,6 @@ ion-content {
   color: #f0f0f0; /* Texto claro para contraste */
 }
 
-.searchbar {
-  margin: 20px;
-  --background: #1c1c1c; /* Fondo más oscuro para la barra de búsqueda */
-  --color: #f5f5f5; /* Texto claro */
-  --placeholder-color: #b0b0b0; /* Placeholder gris */
-}
 
 .book-row {
   display: flex;
@@ -109,24 +103,33 @@ p{
 }
 
 .no-books {
-  background-color: #ffccbc; /* Un color cálido para el mensaje sin libros */
-  color: #bf360c; /* Rojo quemado oscuro */
-  padding: 20px;
-  border-radius: 10px;
+  background-color: #f0f4f8; /* Un color claro y neutro */
+  color: #3e4a59; /* Gris oscuro, más suave que el rojo */
+  padding: 30px;
+  border-radius: 15px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); /* Sombra sutil para darle profundidad */
   text-align: center;
-  font-size: 16px;
+  font-size: 18px;
+  font-family: 'Arial', sans-serif; /* Tipo de letra más moderno */
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 80%;
-  max-width: 400px;
+  width: 85%;
+  max-width: 450px;
   z-index: 9999;
 }
 
 .no-books p {
   margin: 0;
+  font-weight: 500;
 }
+
+.no-books .icon {
+  font-size: 30px; /* Aumentar el tamaño del ícono para hacerlo más visible */
+  margin-bottom: 10px;
+}
+
 
 .fecha-libro {
   font-size: 1.1rem;

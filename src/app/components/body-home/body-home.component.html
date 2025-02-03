@@ -1,11 +1,16 @@
 <ion-content>
   <ion-grid class="grid-container">
-    <ion-searchbar placeholder="Buscar un libro..." class="searchbar"></ion-searchbar>
+
+    <ion-searchbar
+    placeholder="Buscar un libro..."
+    class="searchbar"
+    (ionInput)="filterBooks($event)">
+  </ion-searchbar>
 
     <!-- Si hay libros, se muestran las tarjetas -->
     <ion-row class="book-row">
-      @if (libros.length > 0) {
-        @for (libro of libros; track libro.id) {
+      @if (filteredLibros.length > 0) {
+        @for (libro of filteredLibros; track libro.id) {
           <ion-col size="12" size-md="6">
             <ion-card class="book-card">
               <img alt="portada" [src]="libro.ruta_img || default_img_url" class="book-img" />
@@ -32,8 +37,9 @@
         }
       } @else {
         <div class="no-books">
-          <p>No se ha agregado ningún libro aún</p>
+          <p><span class="icon">📦</span> Sin resultados</p>
         </div>
+
       }
     </ion-row>
   </ion-grid>

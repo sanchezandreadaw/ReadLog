@@ -19,6 +19,7 @@ import { FechaPipe } from 'src/app/pipes/fecha.pipe';
 })
 export class BodyHomeComponent implements OnInit, OnDestroy {
   libros: Libro[] = [];
+  filteredLibros: Libro[] = [];
   default_img_url = "https://ionicframework.com/docs/img/demos/card-media.png";
   private librosSubscription: Subscription = new Subscription();
 
@@ -32,10 +33,26 @@ export class BodyHomeComponent implements OnInit, OnDestroy {
 
     this.librosSubscription = this.bookService.getBooks().subscribe((libros: Libro[]) => {
       this.libros = libros;  // Actualizamos los libros cuando cambian
+      this.filteredLibros = libros;
     });
 
     // Cargar los libros inicialmente
     this.bookService.loadBooks();  // Cargar los libros desde el almacenamiento
+  }
+
+  filterBooks(event: any) {
+    const query = event.target.value?.toLowerCase() || ''; // Obtener el valor de búsqueda y convertirlo a minúsculas
+    if (query) {
+      // Filtramos los libros que coinciden con la búsqueda
+      this.filteredLibros = this.libros.filter(libro =>
+        libro.titulo.toLowerCase().includes(query) ||
+        libro.autor.toLowerCase().includes(query) ||
+        libro.genero.toLowerCase().includes(query)
+      );
+    } else {
+      // Si la búsqueda está vacía, mostramos todos los libros
+      this.filteredLibros = [...this.libros];
+    }
   }
 
   async deleteBook(book: Libro) {
@@ -62,6 +79,7 @@ export class BodyHomeComponent implements OnInit, OnDestroy {
       }
     })
   }
+
 
   goToEditComponent(libro:Libro) {
     this.bookService.setLibroSeleccionado(libro);
