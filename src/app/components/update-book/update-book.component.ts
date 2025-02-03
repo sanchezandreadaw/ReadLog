@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Camera, CameraResultType, CameraSource } from '@capacitor/camera';
@@ -7,6 +7,7 @@ import { IonHeader, IonToolbar, IonButtons,
   IonItem, IonLabel, IonSelect,
   IonModal, IonButton, IonInput,
   IonSelectOption, IonDatetimeButton, IonDatetime } from "@ionic/angular/standalone";
+import { Subscription } from 'rxjs';
 import { generos } from 'src/app/data/db_generos';
 import { Libro } from 'src/app/models/libro';
 import { BookService } from 'src/app/services/book.service';
@@ -24,7 +25,7 @@ import Swal from 'sweetalert2';
     IonIcon,
     IonLabel,
     IonSelect,
-    IonModal,
+    IonDatetime,
     IonContent,
     IonTitle,
     IonItem,
@@ -32,7 +33,6 @@ import Swal from 'sweetalert2';
     IonInput,
     FormsModule,
     IonSelectOption,
-    IonDatetimeButton
   ]
 })
 
@@ -41,6 +41,9 @@ export class UpdateBookComponent  implements OnInit {
   image:string | undefined;
   libro:Libro | null;
   generos_array:string[] = generos;
+  libros: Libro[] = [];
+
+
 
   constructor(private router:Router, private bookService : BookService) {
     this.libro = {
@@ -53,11 +56,20 @@ export class UpdateBookComponent  implements OnInit {
     };
    }
 
+
+
+
   ngOnInit() {
-    if(this.bookService.getLibroSeleccionado()){
-      this.libro = this.bookService.getLibroSeleccionado()
+    if(this.bookService.getLibroSeleccionado()) {
+      this.libro = this.bookService.getLibroSeleccionado();
     }
   }
+
+  updateFecha(event: any) {
+    this.libro!.fecha = event.detail.value; // Asigna la fecha seleccionada al objeto libro
+    console.log("Nueva fecha seleccionada:", this.libro!.fecha);
+  }
+
 
   async takePicture() {
     try {
@@ -77,6 +89,7 @@ export class UpdateBookComponent  implements OnInit {
 
   async updateBook(updateBookForm:NgForm){
     if(updateBookForm.valid){
+
       await Swal.fire({
         title: 'Editar libro',
         icon: 'info',
@@ -86,6 +99,7 @@ export class UpdateBookComponent  implements OnInit {
         showConfirmButton:true
       }).then((response) => {
         if(response.isConfirmed){
+          console.log(`Fecha seleccionada ${this.libro?.fecha}`)
           Swal.fire({
             title: `Confirmación`,
             icon: 'success',

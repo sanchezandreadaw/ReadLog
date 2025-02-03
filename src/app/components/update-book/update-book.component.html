@@ -34,8 +34,15 @@
     </ion-item>
 
     <ion-item>
-      <ion-datetime [(ngModel)]="libro!.fecha" name="fecha" #fecha="ngModel" presentation="date" id="date"></ion-datetime>
+
+      <ion-datetime
+        [value]="libro!.fecha"
+        (ionChange)="updateFecha($event)"
+        required presentation="date">
+      </ion-datetime>
     </ion-item>
+
+
 
 
         <ion-item>

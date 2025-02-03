@@ -9,7 +9,7 @@ import { FooterHomeComponent } from "../footer-home/footer-home.component";
   templateUrl: './total-book-read.component.html',
   styleUrls: ['./total-book-read.component.scss'],
   standalone: true,
-  imports: [IonIcon, IonButton]
+  imports: [IonIcon]
 })
 export class TotalBookReadComponent  implements OnInit {
 
