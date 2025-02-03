@@ -18,7 +18,7 @@ import { AlertService } from 'src/app/services/alert.service';
   styleUrls: ['./add-book.component.scss'],
   standalone: true,
   imports: [
-    IonSelectOption, IonSelect, IonContent, IonToolbar, IonDatetime, IonTitle,
+    IonSelectOption, IonSelect, IonContent, IonToolbar, IonTitle,
     IonButton, IonItem, IonLabel, IonInput, IonIcon, IonHeader, IonButtons,
     FormsModule,
   ]
