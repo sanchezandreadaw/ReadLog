@@ -1,23 +1,32 @@
-<div class="reading-info-container">
-  <div class="container-header">
-    <button class="boton" (click)="goHome()">
-      <ion-icon slot="icon-only" name="arrow-back-outline"></ion-icon>
+<div class="reading-container">
+  <header class="header">
+    <button class="back-button" (click)="goHome()">
+      <ion-icon name="arrow-back-outline"></ion-icon>
     </button>
-    <h2 class="reading-title"> Mis lecturas</h2>
-  </div>
+    <h1 class="title">Mis Lecturas</h1>
+  </header>
 
-
-  <div class="message-container">
+  <section class="message-box">
     @if (totalReadBooks > 0) {
-      <p class="message success">🎉 ¡Enhorabuena! Has leído un total de <strong>{{ totalReadBooks }}</strong> libros. Sigue así. 🚀</p>
+      <p class="message success">📖 Has leído un total de <strong>{{ totalReadBooks }}</strong> libros. ¡Sigue así! 🚀</p>
     } @else {
-      <p class="message warning">📖 Todavía no has leído ningún libro. ¡Empieza hoy mismo tu próxima aventura literaria! 😊</p>
+      <p class="message warning">📚 Aún no has empezado. ¡Anímate a descubrir nuevas historias! 😊</p>
     }
-  </div>
+  </section>
 
-  <div class="statistics">
-    <p><span role="img" aria-label="upward trend">🚀</span> Libros leídos esta semana: <strong>{{ booksReadThisWeek }}</strong></p>
-    <p><span role="img" aria-label="chart">📊</span> Libros leídos este mes: <strong>{{ booksReadThisMonth }}</strong></p>
-    <p><span role="img" aria-label="rocket">🌟</span> Libros leídos este año: <strong>{{ booksReadThisYear }}</strong></p>
-  </div>
+  <section class="statistics">
+    <div class="stat-box">
+      <p>🚀Libros leídos esta semana</p>
+      <span>{{ booksReadThisWeek }}</span>
+    </div>
+    <div class="stat-box">
+      <p>📊 Libros leídos este mes</p>
+      <span>{{ booksReadThisMonth }}</span>
+    </div>
+    <div class="stat-box">
+      <p>🌟Libros leídos este año</p>
+      <span>{{ booksReadThisYear }}</span>
+    </div>
+  </section>
+
 </div>

@@ -192,5 +192,20 @@ export class BookService {
     this.booksReadThisYearSubject.next(booksReadThisYear);
   }
 
+  // Modificar el servicio para calcular los géneros
+async getGenreDistribution(): Promise<{ [key: string]: number }> {
+  const books = await this.storage?.get('books') || [];
+  const genreCount: { [key: string]: number } = {};
+
+  // Contamos la cantidad de libros por género
+  books.forEach((book: { genero: string | number; }) => {
+    if (book.genero) {
+      genreCount[book.genero] = (genreCount[book.genero] || 0) + 1;
+    }
+  });
+
+  return genreCount;
+}
+
 
 }

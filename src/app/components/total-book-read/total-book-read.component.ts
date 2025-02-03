@@ -1,47 +1,48 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { IonIcon } from '@ionic/angular/standalone';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { BookService } from 'src/app/services/book.service';
-import { IonTitle, IonHeader, IonIcon, IonButton, IonToolbar, IonButtons } from "@ionic/angular/standalone";
 import { Router } from '@angular/router';
-import { FooterHomeComponent } from "../footer-home/footer-home.component";
 
 @Component({
   selector: 'app-total-book-read',
   templateUrl: './total-book-read.component.html',
   styleUrls: ['./total-book-read.component.scss'],
-  standalone: true,
-  imports: [IonIcon]
+  standalone:true,
+  imports:[IonIcon]
 })
-export class TotalBookReadComponent  implements OnInit {
-
+export class TotalBookReadComponent implements OnInit {
   totalReadBooks = 0;
   booksReadThisWeek = 0;
   booksReadThisMonth = 0;
   booksReadThisYear = 0;
 
-  constructor(private bookService:BookService, private router:Router) { }
+  constructor(private bookService: BookService, private router:Router) {}
 
-  ngOnInit() : void {
-    this.bookService.totalBooksRead$.subscribe(total => {
+  ngOnInit() {
+
+
+    this.bookService.totalBooksRead$.subscribe((total) => {
       this.totalReadBooks = total;
     });
 
-    this.bookService.booksReadThisWeek$.subscribe(total => {
+    this.bookService.booksReadThisWeek$.subscribe((total) => {
       this.booksReadThisWeek = total;
     });
 
-    this.bookService.booksReadThisMonth$.subscribe(total => {
+    this.bookService.booksReadThisMonth$.subscribe((total) => {
       this.booksReadThisMonth = total;
     });
 
-    this.bookService.booksReadThisYear$.subscribe(total => {
+    this.bookService.booksReadThisYear$.subscribe((total) => {
       this.booksReadThisYear = total;
     });
+
+
   }
 
-  goHome(){
+  goHome() {
     this.router.navigate(['/']);
   }
-
-
-
 }
+
+
