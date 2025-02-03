@@ -23,6 +23,12 @@ export class BookService {
   booksReadThisMonth$ = this.booksReadThisMonthSubject.asObservable();
   booksReadThisYear$ = this.booksReadThisYearSubject.asObservable();
 
+  private genreDistributionSubject = new BehaviorSubject<{ [key: string]: number }>({});
+  genreDistribution$ = this.genreDistributionSubject.asObservable();
+
+
+
+
   constructor(private storageService: Storage) {
     this.init();
   }
@@ -32,6 +38,8 @@ export class BookService {
     this.storage = await this.storageService.create();
     await this.loadBooks();  // Cargar los libros desde almacenamiento al iniciar
   }
+
+
 
   // Cargar libros desde el almacenamiento
   async loadBooks() {
@@ -147,6 +155,8 @@ export class BookService {
     return booksReadThisMonth;
   }
 
+
+
   // Obtener libros leídos este año
   async getBooksReadThisYear(): Promise<number> {
     const books = await this.storage?.get('books') || [];
@@ -161,8 +171,7 @@ export class BookService {
     return booksReadThisYear;
   }
 
-   // Actualizar estadísticas (total y por periodo)
-   private async updateStatistics() {
+  private async updateStatistics() {
     const books = this.booksSubject.getValue();
     this.totalBooksReadSubject.next(books.length);
 
@@ -190,22 +199,12 @@ export class BookService {
     this.booksReadThisWeekSubject.next(booksReadThisWeek);
     this.booksReadThisMonthSubject.next(booksReadThisMonth);
     this.booksReadThisYearSubject.next(booksReadThisYear);
+
+
   }
 
-  // Modificar el servicio para calcular los géneros
-async getGenreDistribution(): Promise<{ [key: string]: number }> {
-  const books = await this.storage?.get('books') || [];
-  const genreCount: { [key: string]: number } = {};
 
-  // Contamos la cantidad de libros por género
-  books.forEach((book: { genero: string | number; }) => {
-    if (book.genero) {
-      genreCount[book.genero] = (genreCount[book.genero] || 0) + 1;
-    }
-  });
 
-  return genreCount;
-}
 
 
 }

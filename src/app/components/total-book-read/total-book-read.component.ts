@@ -38,6 +38,8 @@ export class TotalBookReadComponent implements OnInit {
     });
 
 
+
+
   }
 
   goHome() {
