@@ -1,152 +1,120 @@
-:root {
-  --ion-background-color: #121212;
-  --ion-text-color: #f5f5f5;
-  --ion-card-background: #1e1e1e;
-  --ion-card-header-background: #333;
-  --ion-card-title-color: #e0e0e0;
-  --ion-card-subtitle-color: #b0b0b0;
-  --ion-color-primary: #bb86fc;
-  --ion-item-background: #333;
-  --ion-border-color: #444;
-  --font-family: 'Arial', sans-serif;
-  --ion-card-title-color: #a5d6a7; /* Verde suave para el título */
-  --ion-card-subtitle-color: #80deea; /* Azul claro y suave para el subtítulo */
+ion-content {
+  background-color: #121212; /* Fondo oscuro */
+  color: #f0f0f0; /* Texto claro para contraste */
 }
 
+.searchbar {
+  margin: 20px;
+  --background: #1c1c1c; /* Fondo más oscuro para la barra de búsqueda */
+  --color: #f5f5f5; /* Texto claro */
+  --placeholder-color: #b0b0b0; /* Placeholder gris */
+}
 
-ion-card {
-  background-color: var(--ion-card-background);
-  border-radius: 20px;
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+.book-row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.book-card {
+  background-color: #1e1e1e; /* Fondo oscuro pero con algo de contraste */
+  border-radius: 16px;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5);
   padding: 20px;
-  position: relative;
-  overflow: hidden;
+  margin-bottom: 20px;
   display: flex;
   flex-direction: column;
-  height: 100%;
-  margin-bottom: 20px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  overflow: hidden;
 }
 
-ion-card:hover {
-  transform: translateY(-12px);
-  box-shadow: 0 16px 50px rgba(0, 0, 0, 0.4);
+.book-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.7);
 }
 
-ion-card img {
-  width: 65%;
+.book-img {
+  width: 100%;
   object-fit: cover;
-  border-radius: 15px;
-  margin-bottom: 20px;
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
-  transition: transform 0.3s ease-in-out;
+  border-radius: 12px;
+  margin-bottom: 15px;
 }
 
-ion-card-header {
-  background-color: var(--ion-card-header-background);
+.book-header {
   text-align: center;
-  border-radius: 15px;
+  border-radius: 12px;
 }
 
-ion-card-title {
-  font-size: 1.5rem;
+.book-title {
+  font-size: 1.6rem;
+  color: #e7cba7; /* Oro rosado vibrante para los títulos */
   font-weight: 800;
-  color: #FFF9C4; /* Amarillo pastel claro */
   font-style: italic;
 }
 
-ion-card-subtitle {
-  font-size: 1.3rem;
-  color: #B0BEC5; /* Gris suave con tono rosado */
+p{
+  font-size: 1.3rem !important;
+}
+
+.book-author {
+  font-size: 1.3rem !important;
+  color: #00d1b2; /* Verde esmeralda para los autores */
   font-weight: 500;
 }
 
-.genre {
-  font-size: 1.2rem;
-  font-weight: 700;
-  text-align: center;
-  color: #9575CD; /* Morado suave */
-}
+.book-content {
+  color: #dcdcdc; /* Gris claro para el contenido */
 
-
-ion-card-content {
-  font-size: 1.1rem;
-  color: var(--ion-text-color);
-  background-color: var(--ion-item-background);
   border-radius: 12px;
   text-align: center;
   flex-grow: 1;
 }
 
-ion-button {
-  --background: #444;
-  --border-radius: 50%;
-  --padding-start: 10px;
-  --padding-end: 10px;
-  --border-width: 0;
-  --box-shadow: none;
-  transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
-  color: white;
-}
-
-ion-button:hover {
-  background-color: #555;
-  transform: scale(1.1);
-  box-shadow: 0px 6px 18px rgba(0, 0, 0, 0.3);
-}
-
-ion-icon {
-  font-size: 35px;
-  transition: transform 0.3s ease, color 0.3s ease;
-}
-
-ion-button .icon-trash {
-  color: #f44336;
-}
-
-ion-button .icon-pencil {
-  color: #4caf50;
-}
-
-ion-button .icon-trash:hover {
-  color: #ff5722;
-}
-
-ion-button .icon-pencil:hover {
-  color: #66bb6a;
-}
-
-.container-icons-update-delete {
-  display: flex;
-  justify-content: center;
-  gap: 25px;
-  padding-bottom: 15px;
-}
-
-ion-col {
-  padding: 0 12px;
+.book-actions {
   display: flex;
   justify-content: space-between;
-  flex-direction: column;
+  gap: 20px;
+  padding-top: 15px;
 }
 
-ion-col[size="12"] {
-  flex: 0 0 100%;
+.delete-btn,
+.edit-btn {
+  border: none;
+  background-color: transparent;
+  padding: 12px;
+  color: #f0f0f0; /* Íconos blancos */
+  transition: transform 0.3s ease, color 0.3s ease;
+  cursor: pointer;
 }
 
-.no-libros {
-  background-color: #f8d7da;
-  color: #721c24;
-  border: 1px solid #f5c6cb;
+.delete-btn:hover,
+.edit-btn:hover {
+  transform: scale(1.1);
+}
+
+.delete-btn ion-icon {
+  color: #ff4081; /* Rosa neón suave para eliminar */
+}
+
+.edit-btn ion-icon {
+  color: #00c853; /* Verde neón suave para editar */
+}
+
+.delete-btn:hover ion-icon {
+  color: #ff80ab; /* Rosa neón más brillante al pasar el cursor */
+}
+
+.edit-btn:hover ion-icon {
+  color: #00e676; /* Verde neón más brillante al pasar el cursor */
+}
+
+.no-books {
+  background-color: #ffccbc; /* Un color cálido para el mensaje sin libros */
+  color: #bf360c; /* Rojo quemado oscuro */
   padding: 20px;
   border-radius: 10px;
   text-align: center;
   font-size: 16px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
   position: absolute;
   top: 50%;
   left: 50%;
@@ -156,46 +124,45 @@ ion-col[size="12"] {
   z-index: 9999;
 }
 
-.no-libros p {
+.no-books p {
   margin: 0;
 }
 
 .fecha-libro {
-  font-size: 1.2rem;
-  color: #B0BEC5;
-  background-color: var(--ion-item-background);
+  font-size: 1.1rem;
+  color: #b0b0b0; /* Gris claro para la fecha */
+  background-color: #2b2b2b; /* Fondo oscuro para la fecha */
   border-radius: 8px;
   text-align: center;
-  font-weight: 400;
-  margin: 0;
 }
 
-ion-col[size-md="6"] {
-  flex: 0 0 48%;
+ion-icon {
+  font-size: 32px;
+  transition: color 0.3s ease;
 }
 
-@media (min-width: 768px) {
-  ion-col {
-    flex: 0 0 48%;
-    margin-bottom: 20px;
+@media (max-width: 768px) {
+  .book-card {
+    padding: 15px;
   }
-}
 
-@media (min-width: 1024px) {
-  ion-col {
-    flex: 0 0 48%;
-    margin-bottom: 20px;
+  .book-img {
+    margin-bottom: 10px;
   }
-}
 
-@media (orientation: landscape) {
-  ion-col {
-    flex: 0 0 48%;
+  .book-title {
+    font-size: 1.4rem;
   }
-}
 
-@media (orientation: portrait) {
-  ion-col {
-    flex: 0 0 48%;
+  .book-author {
+    font-size: 1.1rem;
+  }
+
+  .book-content {
+    font-size: 0.9rem;
+  }
+
+  ion-icon {
+    font-size: 28px;
   }
 }
