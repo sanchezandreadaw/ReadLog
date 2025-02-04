@@ -99,6 +99,7 @@ export class UpdateBookComponent  implements OnInit {
         showConfirmButton:true
       }).then((response) => {
         if(response.isConfirmed){
+          this.bookService.updateBook(this.libro!)
           console.log(`Fecha seleccionada ${this.libro?.fecha}`)
           Swal.fire({
             title: `Confirmación`,
