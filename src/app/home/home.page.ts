@@ -9,6 +9,7 @@ import { RouterLink } from '@angular/router';
   selector: 'app-home',
   templateUrl: 'home.page.html',
   styleUrls: ['home.page.scss'],
+  standalone:true,
   imports: [
     IonHeader, IonToolbar, IonMenuButton, IonButtons, IonMenu, IonTitle, IonContent, BodyHomeComponent, FooterHomeComponent,
     RouterLink
