@@ -1,0 +1,171 @@
+ion-content {
+  background-color: #121212; /* Fondo oscuro */
+  color: #f0f0f0; /* Texto claro para contraste */
+}
+
+
+.book-row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.book-card {
+  background-color: #1e1e1e; /* Fondo oscuro pero con algo de contraste */
+  border-radius: 16px;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5);
+  padding: 20px;
+  margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  overflow: hidden;
+}
+
+.book-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.7);
+}
+
+.book-img {
+  width: 100%;
+  object-fit: cover;
+  border-radius: 12px;
+  margin-bottom: 15px;
+}
+
+.book-header {
+  text-align: center;
+  border-radius: 12px;
+}
+
+.book-title {
+  font-size: 1.6rem;
+  color: #e7cba7; /* Oro rosado vibrante para los títulos */
+  font-weight: 800;
+  font-style: italic;
+}
+
+p{
+  font-size: 1.3rem !important;
+}
+
+.book-author {
+  font-size: 1.3rem !important;
+  color: #00d1b2; /* Verde esmeralda para los autores */
+  font-weight: 500;
+}
+
+.book-content {
+  color: #dcdcdc; /* Gris claro para el contenido */
+
+  border-radius: 12px;
+  text-align: center;
+  flex-grow: 1;
+}
+
+.book-actions {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  padding-top: 15px;
+}
+
+.delete-btn,
+.edit-btn {
+  border: none;
+  background-color: transparent;
+  padding: 12px;
+  color: #f0f0f0; /* Íconos blancos */
+  transition: transform 0.3s ease, color 0.3s ease;
+  cursor: pointer;
+}
+
+.delete-btn:hover,
+.edit-btn:hover {
+  transform: scale(1.1);
+}
+
+.delete-btn ion-icon {
+  color: #ff4081; /* Rosa neón suave para eliminar */
+}
+
+.edit-btn ion-icon {
+  color: #00c853; /* Verde neón suave para editar */
+}
+
+.delete-btn:hover ion-icon {
+  color: #ff80ab; /* Rosa neón más brillante al pasar el cursor */
+}
+
+.edit-btn:hover ion-icon {
+  color: #00e676; /* Verde neón más brillante al pasar el cursor */
+}
+
+.no-books {
+  background-color: #f0f4f8; /* Un color claro y neutro */
+  color: #3e4a59; /* Gris oscuro, más suave que el rojo */
+  padding: 30px;
+  border-radius: 15px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); /* Sombra sutil para darle profundidad */
+  text-align: center;
+  font-size: 18px;
+  font-family: 'Arial', sans-serif; /* Tipo de letra más moderno */
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 85%;
+  max-width: 450px;
+  z-index: 9999;
+}
+
+.no-books p {
+  margin: 0;
+  font-weight: 500;
+}
+
+.no-books .icon {
+  font-size: 30px; /* Aumentar el tamaño del ícono para hacerlo más visible */
+  margin-bottom: 10px;
+}
+
+
+.fecha-libro {
+  font-size: 1.1rem;
+  color: #b0b0b0; /* Gris claro para la fecha */
+  background-color: #2b2b2b; /* Fondo oscuro para la fecha */
+  border-radius: 8px;
+  text-align: center;
+}
+
+ion-icon {
+  font-size: 32px;
+  transition: color 0.3s ease;
+}
+
+@media (max-width: 768px) {
+  .book-card {
+    padding: 15px;
+  }
+
+  .book-img {
+    margin-bottom: 10px;
+  }
+
+  .book-title {
+    font-size: 1.4rem;
+  }
+
+  .book-author {
+    font-size: 1.1rem;
+  }
+
+  .book-content {
+    font-size: 0.9rem;
+  }
+
+  ion-icon {
+    font-size: 28px;
+  }
+}

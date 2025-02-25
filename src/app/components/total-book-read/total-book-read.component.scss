@@ -1,0 +1,102 @@
+/* 🎨 Estilos oscuros y elegantes */
+$primary-color: #1e1e1e;
+$secondary-color: #282828;
+$text-color: #ffffff;
+$accent-color: #5fb3b3;
+
+/* Contenedor principal */
+.reading-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  max-width: 600px;
+  min-height: 100vh;
+  margin: 0 auto;
+  background: $primary-color;
+  color: $text-color;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  overflow-y: auto; /* Permite el scroll si el contenido es más grande */
+}
+
+/* Cabecera */
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+.back-button {
+  background: transparent;
+  border: none;
+  font-size: 1.6rem;
+  color: $accent-color;
+  cursor: pointer;
+}
+
+.title {
+  font-size: 1.8rem;
+  font-weight: bold;
+  text-align: center;
+}
+
+/* Mensaje */
+.message-box {
+  width: 100%;
+  max-width: 500px;
+  text-align: center;
+  padding: 15px;
+  background: $secondary-color;
+  border-radius: 10px;
+  margin-bottom: 20px;
+}
+
+.message {
+  font-size: 1.3rem !important;
+}
+
+.success {
+  color: #78c478;
+}
+
+.warning {
+  color: #e57373;
+}
+
+/* Estadísticas */
+.statistics {
+  width: 100%;
+  max-width: 500px;
+}
+
+.stat-box {
+
+  text-align: center;
+  padding: 10px;
+  background: $secondary-color;
+  border-radius: 10px;
+  margin: 5px;
+  font-size: 1.2rem !important;
+}
+
+
+
+
+/* 📱 Responsivo */
+@media (max-width: 480px) {
+  .title {
+    font-size: 1.5rem;
+  }
+
+  .message {
+    font-size: 1rem;
+  }
+
+  .stat-box {
+    font-size: 1rem;
+  }
+}

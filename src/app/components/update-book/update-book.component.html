@@ -1,0 +1,65 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button (click)="goHome()">
+        <ion-icon slot="icon-only" name="arrow-back-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title class="titulo-add-book">Editar lectura📗</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <form #updateBookForm="ngForm" class="form-container" (submit)="updateBook(updateBookForm)">
+    <ion-item>
+      <ion-label >Título</ion-label>
+      <ion-input type="text"  required [(ngModel)]="libro!.titulo" minlength="3" name="titulo" #titulo="ngModel">
+
+      </ion-input>
+
+    </ion-item>
+
+    <ion-item>
+      <ion-label >Autor</ion-label>
+      <ion-input type="text" required [(ngModel)]="libro!.autor" name="autor" minlength="3" #autor="ngModel"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Género</ion-label>
+      <ion-select [value]="libro?.genero" placeholder="Selecciona un género" required [(ngModel)]="libro!.genero" name="genero">
+        @for(genero of generos_array; track genero) {
+          <ion-select-option [value]="genero" >{{ genero }}</ion-select-option>
+        }
+      </ion-select>
+    </ion-item>
+
+    <ion-item>
+
+      <ion-datetime
+        [value]="libro!.fecha"
+        (ionChange)="updateFecha($event)"
+        required presentation="date">
+      </ion-datetime>
+    </ion-item>
+
+
+
+
+        <ion-item>
+      <ion-label>Imagen</ion-label>
+      <ion-button (click)="takePicture()">Seleccionar Imagen</ion-button>
+    </ion-item>
+
+    @if(image) {
+      <div class="image-container">
+        <img  [src]="image" alt="Imagen seleccionada" class="book-image">
+        <ion-button fill="outline" color="danger" class="delete-button" (click)="deleteImage()">
+          <ion-icon name="trash-outline"></ion-icon>
+        </ion-button>
+      </div>
+    }
+
+      <ion-button type="submit" class="submit-button" [disabled]="updateBookForm.invalid">Editar libro</ion-button>
+
+  </form>
+</ion-content>

@@ -1,0 +1,33 @@
+<div class="reading-container">
+  <header class="header">
+    <button class="back-button" (click)="goHome()">
+      <ion-icon name="arrow-back-outline"></ion-icon>
+    </button>
+    <h1 class="title">Mis Lecturas</h1>
+  </header>
+
+  <section class="message-box">
+    @if (totalReadBooks > 0) {
+      <p class="message success">📖 Has leído un total de <strong>{{ totalReadBooks }}</strong> libros. ¡Sigue así! 🚀</p>
+    } @else {
+      <p class="message warning">📚 Aún no has empezado. ¡Anímate a descubrir nuevas historias! 😊</p>
+    }
+  </section>
+
+  <section class="statistics">
+    <div class="stat-box">
+      <p>🚀Libros leídos esta semana</p>
+      <span>{{ booksReadThisWeek }}</span>
+    </div>
+    <div class="stat-box">
+      <p>📊 Libros leídos este mes</p>
+      <span>{{ booksReadThisMonth }}</span>
+    </div>
+    <div class="stat-box">
+      <p>🌟Libros leídos este año</p>
+      <span>{{ booksReadThisYear }}</span>
+    </div>
+
+  </section>
+
+</div>

@@ -1,0 +1,46 @@
+<ion-content>
+  <ion-grid class="grid-container">
+
+    <ion-searchbar
+    placeholder="Buscar un libro..."
+    class="searchbar"
+    (ionInput)="filterBooks($event)">
+  </ion-searchbar>
+
+    <!-- Si hay libros, se muestran las tarjetas -->
+    <ion-row class="book-row">
+      @if (filteredLibros.length > 0) {
+        @for (libro of filteredLibros; track libro.id) {
+          <ion-col size="12" size-md="6">
+            <ion-card class="book-card">
+              <img alt="portada" [src]="libro.ruta_img || default_img_url" class="book-img" />
+              <ion-card-header class="book-header">
+                <ion-card-title class="book-title">{{ libro.titulo }}</ion-card-title>
+                <ion-card-subtitle class="book-author">{{ libro.autor }}</ion-card-subtitle>
+              </ion-card-header>
+              <ion-card-content class="book-content">
+                <p class="book-genre">{{ libro.genero }}</p>
+                <p class="book-date"> Finalizado - {{ libro.fecha | fecha }}</p>
+              </ion-card-content>
+
+              <div class="book-actions">
+                <ion-button color="light" (click)="deleteBook(libro)" class="delete-btn">
+                  <ion-icon name="trash-outline"></ion-icon>
+                </ion-button>
+
+                <ion-button color="light" (click)="goToEditComponent(libro)" class="edit-btn">
+                  <ion-icon name="pencil-outline"></ion-icon>
+                </ion-button>
+              </div>
+            </ion-card>
+          </ion-col>
+        }
+      } @else {
+        <div class="no-books">
+          <p><span class="icon">📦</span> Sin resultados</p>
+        </div>
+
+      }
+    </ion-row>
+  </ion-grid>
+</ion-content>
